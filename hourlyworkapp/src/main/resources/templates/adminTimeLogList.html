@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Time Log Web App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+    </head>
+    <body>
+        <table class="table table-striped">
+            <tr>
+                <th>Employee</th>
+                <th>Work Type</th>
+                <th>Work Description</th>
+                <th>Date</th>
+                <th>Hours</th>
+                <th>Minutes</th>
+                <!--<th sec:authorize="hasAuthority('ADMIN')" colspan="2">Manage Book</th>-->
+            </tr>
+                <tr th:each = "logTime : ${logTimeList}">
+                <td th:text="${logTime.user.username}"></td>
+                <td th:text="${logTime.workType.name}"></td>
+                <td th:text="${logTime.description}"></td>
+                <td th:text="${logTime.logDate}"></td>
+                <td th:text="${logTime.hours}" ></td>
+                <td th:text="${logTime.minutes}"></td>
+                <td sec:authorize="hasAuthority('ADMIN')">  
+                    <span><a th:href="@{/delete/{id}(id=${logTime.id})}" class="btn btn-danger">Delete</a></span>
+                </td>
+                <td sec:authorize="hasAuthority('ADMIN')">
+                    <span><a th:href="@{/edit/{id}(id=${logTime.id})}">Edit</a></span>
+                </th>
+            </tr>
+        </table>
+        <div style="display: flex;">
+            <a href="/add" class="btn btn-success">Log New Time</a>
+            <a href="/index" class="btn btn-primary" style="margin-left: 5px;">Back to Main Menu</a>
+            <form th:action="@{/logout}" method="post" style="padding-left: 5px;">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" style="height: 40px;"/>
+            </form>
+        </div>
+
+    </body>
+</html>

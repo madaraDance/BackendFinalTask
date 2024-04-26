@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Server Programming</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body style="margin-left: 2%;">
+    <h1>Log Time</h1>
+    <div >
+        <form th:object="${timeLog}" th:action="@{/save}" action="#" method="post">
+            <label for="id"></label>
+            <input type="hidden" id="id" th:field="*{id}" readonly="readonly"/>
+            <label for="workTypeList">Work Type:</label>
+            <select id="workTypeList" th:field="*{workType}" style="width: 20%; min-width: 150px; max-width: 200px;">
+                <option th:each="workType: ${workTypes}" th:value="${workType.id}"
+                    th:text="${workType.name}"></option>
+            </select></br>
+            <label for="workDescription">Work Description:</label>
+            <input type="text" id="workDescription" th:field="*{description}" /></br>
+            <label for="localDate">Date:</label>
+            <input type="date" th:field="*{logDate}" /></br>
+            <label for="hours">Hours:</label>
+            <input type="number" th:field="*{hours}" /></br>
+            <label for="minutes">Minutes:</label>  
+            <input type="number" id="minutes" th:field="*{minutes}" /></br>
+            <br/>
+            <input type="submit" value="Save" class="btn btn-success"></input>
+            <a href="/index" class="btn btn-primary">Back to Main Menu</a>
+            <form th:action="@{/logout}" method="post" style="padding-left: 5px;">
+                <input type="submit" value="Sign Out" class="btn btn-sm btn-danger" style="height: 40px;"/>
+            </form>
+        </form>
+</body>
+</html>
